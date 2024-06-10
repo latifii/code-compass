@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
-
-export default function StudentLayout({ children }: { children: ReactNode }) {
+type StudentType = {
+  children: ReactNode;
+};
+export default function StudentLayout({ children }: StudentType) {
   return (
     <>
       <aside className="bg-gray-300 w-80 flex justify-center items-center"></aside>
