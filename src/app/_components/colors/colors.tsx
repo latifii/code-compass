@@ -23,7 +23,7 @@ function ColorBox({ name, color }: colorBoxType) {
 }
 function Colors() {
   return (
-    <div className="flex flex-wrap justify-center gap-4" dir="ltr">
+    <div className="flex flex-wrap justify-center gap-4" dir="ltr" lang="en">
       {Object.entries(tailwindColors).map(([name, color]) => (
         <ColorBox key={name} name={name} color={color} />
       ))}
