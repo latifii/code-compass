@@ -51,7 +51,7 @@ export default function RootLayout({
     <html dir="rtl" className={`${yekanweb.variable} ${figtree.variable} `}>
       <body className="min-h-screen grid grid-rows-[80px_1fr_auto] dark:bg-base-100 dark:text-base-content">
         <Header />
-        <div className="flex-1 flex container mx-10">{children}</div>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
