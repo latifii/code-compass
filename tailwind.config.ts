@@ -60,7 +60,9 @@ const config: Config = {
   content: ["./src/app/**/*.{js,ts,jsx,tsx}"],
   theme: {
     colors: tailwindColors,
-    extend: {},
+    container: {
+      center: true,
+    },
   },
   darkMode: "class",
   plugins: [],
