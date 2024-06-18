@@ -17,8 +17,11 @@ export default function Home() {
               هر جای مسیرِ برنامه‌نویسی که باشی، با هم‌راهی استادهای باتجربهٔ
               قطب نمای کد می‌تونی بدون محدودیت به قله‌های بالاتر صعود کنی. ما
               همیشه هواتو داریم.
-              <Button isLoading={false}>ثبت نام</Button>
             </p>
+            <div className="mt-5 flex gap-4">
+              <Button variant="primary">دوره‌های ری‌اکت و نکست</Button>
+              <Button variant="neutral">مشاوره برنامه‌نویسی</Button>
+            </div>
             <Image
               src="/images/frameworks.png"
               className="grayscale mt-4 opacity-70 m-auto xl:m-0"
