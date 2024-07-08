@@ -1,5 +1,6 @@
 import { CourseSummary } from "@/types/course-summary.interface";
 import { HomeHeroSection } from "./_components/home-hero-section/home-hero-section";
+import { CourseCardList } from "./(courses)/_components/course-card-list";
 
 async function getNewestCourses(count: number): Promise<CourseSummary[]> {
   const res = await fetch(
@@ -15,9 +16,13 @@ export default async function Home() {
   return (
     <>
       <HomeHeroSection />
-      {newestCourses.map((item) => {
-        return <p key={item.id}>{item.title}</p>;
-      })}
+      <section className="container pt-20">
+        <div className="text-center xl:text-right">
+          <h2 className="text-2xl font-extrabold">تازه ترین دوره های آموزشی</h2>
+          <p>برای به روز موندن، یاد گرفتن نکته های تازه و ضروری</p>
+        </div>
+        <CourseCardList courses={newestCourses} />
+      </section>
     </>
   );
 }
