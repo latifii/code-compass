@@ -8,7 +8,7 @@ type BlogPostCardListProps = {
   posts: BlogPostSummary[];
 };
 
-export const BlogPostCardList: React.FC<BlogPostCardListProps> = async ({
+export const BlogPostCardList: React.FC<BlogPostCardListProps> = ({
   posts,
 }) => {
   return (
