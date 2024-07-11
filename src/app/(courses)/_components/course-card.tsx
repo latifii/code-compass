@@ -32,7 +32,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
       </div>
       <div className="card-body">
         <Link href={`/course/${slug}`}>{title}</Link>
-        <p>{subTitle}</p>
+        <p className="font-light">{subTitle}</p>
         <div className="flex items-center justify-between">
           <Badge variant="accent">
             <IconClock width={16} height={16} /> {duration}

@@ -5,7 +5,12 @@ function Header() {
   return (
     <header className="border-b dark:border-base-content dark:border-opacity-5">
       <div className="container flex items-center justify-between">
-        <Image src="/images/logo-dark.svg" alt="logo" width={80} height={36} />
+        <Image
+          src="/images/logo_no_text.webp"
+          alt="logo"
+          width={140}
+          height={120}
+        />
         <TopNavigation />
         <span className="mr-auto">user Auth</span>
       </div>
