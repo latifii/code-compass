@@ -16,6 +16,7 @@ export const Price: React.FC<PriceProps> = ({
   price,
   className,
 }: PriceProps) => {
+  const svgSize = sizeClasses[size].svgSize;
   return (
     <>
       {price != null && price > 0 ? (
@@ -25,8 +26,8 @@ export const Price: React.FC<PriceProps> = ({
           {price?.toLocaleString("fa-IR")}
           <IconToman
             strokeWidth={1}
-            width={sizeClasses[size].svgSize}
-            height={sizeClasses[size].svgSize}
+            width={svgSize}
+            height={svgSize}
             viewBox="0 0 16 16"
           />
         </span>
