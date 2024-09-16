@@ -1,12 +1,14 @@
 import classNames from "classnames";
 import { Size } from "../types/size.type";
 import { ProgsessProps } from "./progress.type";
+
 const sizeClasses: Record<Size, string> = {
   tiny: "progress-xs",
   small: "progress-sm",
   normal: "progress-md",
   large: "progress-lg",
 };
+
 const Progress: React.FC<ProgsessProps> = ({
   className,
   variant = "primary",
@@ -17,6 +19,7 @@ const Progress: React.FC<ProgsessProps> = ({
     [`progress-${variant}`]: variant,
     [`${sizeClasses[size]}`]: size,
   });
+
   return <progress value={value} max={100} className={classes} />;
 };
 

@@ -1,5 +1,4 @@
 import { Price } from "@/app/_components/price/price";
-import { CourseAsideProps } from "./course-aside.types";
 import Rating from "@/app/_components/rating/rating";
 import {
   IconArrowLeftFill,
@@ -14,10 +13,11 @@ import {
 import Avatar from "@/app/_components/avatar/avatar";
 import { API_URL } from "@/configs/global";
 import { Button } from "@/app/_components/button";
-// import Progress from "@/app/_components/progress/progress";
 import Progress from "@/app/_components/progress/progress";
 import { CourseLevel } from "@/enums/course-level.enum";
 import { Variant } from "@/app/_components/types/variant.type";
+import { CourseAsideProps } from "./course-aside.types";
+
 const levelVariant: Record<CourseLevel, Variant> = {
   0: "warning",
   1: "info",
@@ -29,6 +29,7 @@ const levelProgress: Record<CourseLevel, number> = {
   1: 50,
   2: 100,
 };
+
 const CourseAside: React.FC<CourseAsideProps> = ({
   basePrice,
   numberOfLectures,

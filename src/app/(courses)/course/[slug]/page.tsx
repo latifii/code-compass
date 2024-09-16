@@ -21,6 +21,7 @@ async function getCourse(slug: string): Promise<CourseDetailsType> {
   const res = await fetch(`${API_URL}/courses/${slug}`);
   return res.json();
 }
+
 export default async function CourseDetails({
   params,
 }: {
@@ -28,6 +29,7 @@ export default async function CourseDetails({
 }) {
   const { slug } = params;
   const courseData = await getCourse(slug);
+
   const faqs: AccordionType[] = courseData.frequentlyAskedQuestions.map(
     (faq) => ({
       id: faq.id,
@@ -35,6 +37,7 @@ export default async function CourseDetails({
       content: faq.answer,
     })
   );
+
   const tabs: Tab[] = [
     {
       label: "مشخصات دوره",
@@ -49,7 +52,6 @@ export default async function CourseDetails({
       content: <Accordion data={faqs} />,
     },
   ];
-  console.log(courseData);
 
   return (
     <div className=" container grid grid-cols-10 grid-rows-[1fr 1fr] gap-10 py-10">
