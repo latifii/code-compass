@@ -37,6 +37,7 @@ export default async function CourseDetails({
       content: faq.answer,
     })
   );
+  console.log(courseData);
 
   const tabs: Tab[] = [
     {
