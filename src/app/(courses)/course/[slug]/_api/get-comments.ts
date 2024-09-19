@@ -21,6 +21,8 @@ export function useCourseComments({ params }: GetCommentsOptions) {
   const { data: dataComments } = useQuery({
     queryKey: ["courseComments"],
     queryFn: () => getComments({ params }),
+    staleTime: 5 * 60 * 60 * 1000,
+    gcTime: 6 * 60 * 60 * 1000,
   });
 
   return { dataComments };

@@ -2,6 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { useCourseComments } from "../../_api/get-comments";
+import Comment from "@/app/_components/comment/comment";
 
 const CourseComments: React.FC = () => {
   const { slug } = useParams();
@@ -14,9 +15,7 @@ const CourseComments: React.FC = () => {
   return (
     <>
       {dataComments?.data.map((comment) => (
-        <p className="mb-8" key={comment.id}>
-          {comment.commentText}
-        </p>
+        <Comment variant="info" key={`comment-${comment.id}`} {...comment} />
       ))}
     </>
   );
