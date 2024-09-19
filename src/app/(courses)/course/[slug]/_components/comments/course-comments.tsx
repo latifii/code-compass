@@ -4,23 +4,52 @@ import { useParams } from "next/navigation";
 import { useCourseComments } from "../../_api/get-comments";
 import Comment from "@/app/_components/comment/comment";
 import { TextPlaceholder } from "@/app/_components/palceholders/text/text-placeholder";
+import { Fragment, useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 
 const CourseComments: React.FC = () => {
   const { slug } = useParams();
-  const { dataComments, isLoading } = useCourseComments({
+  const { ref, inView } = useInView({});
+  const {
+    dataComments,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    refetch,
+  } = useCourseComments({
     params: {
       slug: slug as string,
       page: 1,
     },
   });
 
-  if (isLoading) return <TextPlaceholder />;
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, fetchNextPage, hasNextPage]);
 
   return (
     <>
-      {dataComments?.data.map((comment) => (
-        <Comment variant="info" key={`comment-${comment.id}`} {...comment} />
+      {dataComments?.pages.map((currentPage, i) => (
+        <Fragment key={`comment-page-${i}`}>
+          {currentPage.data.map((comment) => (
+            <Comment
+              key={`comment-${comment.id}`}
+              {...comment}
+              variant="info"
+            />
+          ))}
+        </Fragment>
       ))}
+
+      {(isFetching || hasNextPage) && (
+        <div ref={ref}>
+          <TextPlaceholder />
+        </div>
+      )}
     </>
   );
 };
