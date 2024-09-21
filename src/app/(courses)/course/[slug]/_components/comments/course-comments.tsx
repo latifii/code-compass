@@ -6,6 +6,8 @@ import Comment from "@/app/_components/comment/comment";
 import { TextPlaceholder } from "@/app/_components/palceholders/text/text-placeholder";
 import { Fragment, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
+import { Button } from "@/app/_components/button";
+import { IconRefresh } from "@/app/_components/icons/icons";
 
 const CourseComments: React.FC = () => {
   const { slug } = useParams();
@@ -30,7 +32,25 @@ const CourseComments: React.FC = () => {
       fetchNextPage();
     }
   }, [inView, fetchNextPage, hasNextPage]);
-
+  if (error) {
+    return (
+      <>
+        <p>خطا در برقراری ارتباط با سرور</p>
+        <div className="text-center mt-3">
+          <Button
+            variant="neutral"
+            className="font-semibold"
+            isOutline={true}
+            shape="wide"
+            onClick={() => refetch()}
+          >
+            <IconRefresh />
+            تلاش مجدد
+          </Button>
+        </div>
+      </>
+    );
+  }
   return (
     <>
       {dataComments?.pages.map((currentPage, i) => (
