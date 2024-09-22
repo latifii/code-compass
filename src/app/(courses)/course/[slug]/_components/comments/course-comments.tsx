@@ -8,6 +8,7 @@ import { Fragment, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { Button } from "@/app/_components/button";
 import { IconRefresh } from "@/app/_components/icons/icons";
+import Alert from "@/app/_components/alert/alert";
 
 const CourseComments: React.FC = () => {
   const { slug } = useParams();
@@ -35,7 +36,7 @@ const CourseComments: React.FC = () => {
   if (error) {
     return (
       <>
-        <p>خطا در برقراری ارتباط با سرور</p>
+        <Alert>خطا در برقراری ارتباط با سرور</Alert>
         <div className="text-center mt-3">
           <Button
             variant="neutral"
