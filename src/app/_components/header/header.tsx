@@ -1,5 +1,6 @@
 import Image from "next/image";
 import TopNavigation from "./top-navigation";
+import Link from "next/link";
 
 function Header() {
   return (
@@ -12,7 +13,7 @@ function Header() {
           height={120}
         />
         <TopNavigation />
-        <span className="mr-auto">user Auth</span>
+        <Link href="/signin">ورود/ثبت نام</Link>
       </div>
     </header>
   );

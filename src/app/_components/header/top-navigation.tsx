@@ -10,7 +10,7 @@ const menuItems: NavigationMenuItem[] = [
   },
   {
     title: "دوره های ری اکت و نسکت",
-    href: "/courses",
+    href: "/course",
   },
   {
     title: "مطلب و مقالات",
