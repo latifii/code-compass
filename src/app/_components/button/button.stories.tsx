@@ -1,8 +1,11 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./button";
-import results from "../../../../.jest-test-results.json";
+// import results from "../../../../.jest-test-results.json";
 import { withTests } from "@storybook/addon-jest";
-
+let results;
+if (process.env.NODE_ENV === "development") {
+  results = require("../../../../.jest-test-results.json");
+}
 const meta: Meta<typeof Button> = {
   component: Button,
   tags: ["autodocs"],
