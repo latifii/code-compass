@@ -5,16 +5,27 @@ import TextInput from "@/app/_components/form-input/text-input/text-input";
 import Textbox from "@/app/_components/textbox/textbox";
 import { SignIn } from "../types/signin-form";
 import { useForm } from "react-hook-form";
+import { useSingIn } from "../_api/signin";
+import { useRouter } from "next/navigation";
 
 const SignInForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm<SignIn>();
 
-  function onSubmit(data: any) {
-    console.log(data);
+  const router = useRouter();
+
+  const { isPending, submit } = useSingIn({
+    onSuccess: () => {
+      router.push(`/verify?mobile=${getValues("mobile")}`);
+    },
+  });
+
+  function onSubmit(data: SignIn) {
+    submit(data);
   }
   return (
     <>
@@ -40,7 +51,7 @@ const SignInForm = () => {
           }}
           errors={errors}
         />
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="primary" isLoading={isPending}>
           تایید و دریافت کد
         </Button>
       </form>
