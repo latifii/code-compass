@@ -2,11 +2,12 @@
 
 import { Button } from "@/app/_components/button/button";
 import TextInput from "@/app/_components/form-input/text-input/text-input";
-import Textbox from "@/app/_components/textbox/textbox";
 import { SignIn } from "../types/signin-form";
 import { useForm } from "react-hook-form";
 import { useSingIn } from "../_api/signin";
 import { useRouter } from "next/navigation";
+import { useNotificationStore } from "@/stores/notification.store";
+import { useEffect } from "react";
 
 const SignInForm = () => {
   const {
@@ -27,6 +28,14 @@ const SignInForm = () => {
   function onSubmit(data: SignIn) {
     submit(data);
   }
+  const showNotification = useNotificationStore(
+    (state) => state.showNotification
+  );
+
+  useEffect(() => {
+    showNotification({ message: "عملیات با موفقیت انجام شد", type: "success" });
+    console.log("show");
+  }, []);
   return (
     <>
       <h5 className="text-2xl">ورود | ثبت نام</h5>
