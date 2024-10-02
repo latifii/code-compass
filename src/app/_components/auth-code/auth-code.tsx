@@ -1,64 +1,139 @@
 "use client";
 
-import { useRef } from "react";
-import { AuthCodeProps, AuthInputProps } from "./auth-code.types";
+import {
+  ChangeEvent,
+  FocusEvent,
+  forwardRef,
+  KeyboardEvent,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from "react";
+import { AuthCodeProps, AuthCodeRef, AuthInputProps } from "./auth-code.types";
 import classNames from "classnames";
 
-const AuthCode: React.FC<AuthCodeProps> = ({
-  variant = "ghost",
-  authFocus = true,
-  className,
-  isDisabled,
-  length = 5,
-  onChange,
-}) => {
-  if (length < 1) {
-    throw new Error("تعداد ارقام باید بزرگتر از صفر باشد");
-  }
+// eslint-disable-next-line react/display-name
+const AuthCode = forwardRef<AuthCodeRef, AuthCodeProps>(
+  (
+    {
+      variant = "ghost",
+      autoFocus = true,
+      className,
+      isDisabled,
+      length = 5,
+      onChange,
+    },
+    ref
+  ) => {
+    if (length < 1) {
+      throw new Error("تعداد ارقام باید بزرگتر از صفر باشد");
+    }
 
-  const inputsRef = useRef<Array<HTMLInputElement>>([]);
+    const inputsRef = useRef<Array<HTMLInputElement>>([]);
 
-  const inputProps: AuthInputProps = {
-    min: "0",
-    max: "9",
-    pattern: "[0-9]{1}",
-  };
+    const inputProps: AuthInputProps = {
+      min: "0",
+      max: "9",
+      pattern: "[0-9]{1}",
+    };
 
-  const sendResult = () => {};
+    useEffect(() => {
+      if (autoFocus) {
+        inputsRef.current[0].focus();
+      }
+    }, [autoFocus]);
 
-  const handleOnChange = () => {};
+    const sendResult = () => {
+      const result = inputsRef.current.map((input) => input.value).join("");
+      onChange(result);
+    };
 
-  const handleOnFocus = () => {};
+    const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+      console.log("on change");
+      const {
+        target: { value, nextElementSibling },
+      } = e;
 
-  const handleOnKeyDown = () => {};
+      if (value.match(inputProps.pattern)) {
+        if (nextElementSibling !== null) {
+          (nextElementSibling as HTMLInputElement).focus();
+        }
+      } else {
+        e.target.value = "";
+      }
+      sendResult();
+    };
 
-  const classes = classNames("textbox flex-1 w-1 text-center", {
-    [`textbox-${variant}`]: variant,
-  });
+    const handleOnFocus = (e: FocusEvent<HTMLInputElement>) => {
+      e.target.select();
+    };
 
-  const inputs = [];
-  for (let i = 0; i < length; i++) {
-    inputs.push(
-      <input
-        type="text"
-        className={classes}
-        maxLength={1}
-        disabled={isDisabled}
-        onChange={handleOnChange}
-        onFocus={handleOnFocus}
-        onKeyDown={handleOnKeyDown}
-        ref={(element: HTMLInputElement) => {
-          inputsRef.current[i] = element;
-        }}
-      />
+    const handleOnKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+      const { key } = e;
+      const target = e.target as HTMLInputElement;
+      if (key === "Backspace") {
+        if (target.value === "") {
+          if (target.previousElementSibling !== null) {
+            const previousElement =
+              target.previousElementSibling as HTMLInputElement;
+            previousElement.value = "";
+            previousElement.focus();
+          } else {
+            target.value = "";
+          }
+        }
+      }
+      sendResult();
+    };
+
+    useImperativeHandle(ref, () => ({
+      focus: () => {
+        if (inputsRef.current) {
+          inputsRef.current[0].focus();
+        }
+      },
+      clear: () => {
+        if (inputsRef.current) {
+          for (let i = 0; i < inputsRef.current.length; i++) {
+            inputsRef.current[i].value = "";
+          }
+
+          inputsRef.current[0].focus();
+        }
+
+        sendResult();
+      },
+    }));
+
+    const classes = classNames("textbox flex-1 w-1 text-center", {
+      [`textbox-${variant}`]: variant,
+    });
+
+    const inputs = [];
+    for (let i = 0; i < length; i++) {
+      inputs.push(
+        <input
+          key={`input-${i + 1}`}
+          type="text"
+          className={classes}
+          maxLength={1}
+          disabled={isDisabled}
+          onChange={handleOnChange}
+          onFocus={handleOnFocus}
+          onKeyDown={handleOnKeyDown}
+          ref={(element: HTMLInputElement) => {
+            inputsRef.current[i] = element;
+          }}
+        />
+      );
+    }
+
+    return (
+      <>
+        <div className={`flex gap-4 flex-row-reverse`}>{inputs}</div>;
+      </>
     );
   }
-
-  return (
-    <>
-      <div className={`flex gap-4 flex-row-reverse`}>{inputs}</div>;
-    </>
-  );
-};
+);
 
 export default AuthCode;

@@ -1,23 +1,29 @@
 "use client";
 
 import AuthCode from "@/app/_components/auth-code/auth-code";
+import { AuthCodeRef } from "@/app/_components/auth-code/auth-code.types";
 import { Button } from "@/app/_components/button";
 import Link from "next/link";
+import { useRef } from "react";
 
-const VerificationForm: React.FC = () => {
+const VerificationForm = () => {
+  const authRef = useRef<AuthCodeRef>(null);
   return (
     <>
       <h5 className="text-2xl">کد تایید</h5>
       <p className="mt-2">دنیای شگفت انگیز برنامه نویسی در انتظار شماست</p>
       <form className="flex flex-col gap-6 mt-10 flex-1">
         <AuthCode
+          ref={authRef}
           className="mt-10"
           onChange={(value) => {
             console.log(value);
           }}
         />
         Timer
-        <Button isLink={true}>ارسال مجدد کد تایید</Button>
+        <Button isLink={true} onClick={authRef.current?.clear}>
+          ارسال مجدد کد تایید
+        </Button>
         <Button type="submit" variant="primary">
           تایید و ادامه
         </Button>
