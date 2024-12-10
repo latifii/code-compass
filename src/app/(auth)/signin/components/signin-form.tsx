@@ -7,7 +7,6 @@ import { useForm } from "react-hook-form";
 import { useSingIn } from "../_api/signin";
 import { useRouter } from "next/navigation";
 import { useNotificationStore } from "@/stores/notification.store";
-import { useEffect } from "react";
 
 const SignInForm = () => {
   const {
@@ -32,10 +31,10 @@ const SignInForm = () => {
     (state) => state.showNotification
   );
 
-  useEffect(() => {
-    showNotification({ message: "عملیات با موفقیت انجام شد", type: "success" });
-    console.log("show");
-  }, []);
+  // useEffect(() => {
+  //   showNotification({ message: "عملیات با موفقیت انجام شد", type: "success" });
+  //   console.log("show");
+  // }, []);
   return (
     <>
       <h5 className="text-2xl">ورود | ثبت نام</h5>
