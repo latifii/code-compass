@@ -5,9 +5,11 @@ import { TabsProps } from "./tabs.types";
 
 const Tabs: React.FC<TabsProps> = ({ tabs }) => {
   const [activeTab, setActiveTab] = useState<number>(0);
+
   function handleTabClick(index: number) {
     setActiveTab(index);
   }
+
   return (
     <div className="tabs">
       <div className="tab-labels">
