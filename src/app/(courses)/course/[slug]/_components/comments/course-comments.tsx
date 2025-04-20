@@ -12,7 +12,9 @@ import Alert from "@/app/_components/alert/alert";
 
 const CourseComments: React.FC = () => {
   const { slug } = useParams();
+
   const { ref, inView } = useInView({});
+
   const {
     dataComments,
     error,
@@ -33,6 +35,7 @@ const CourseComments: React.FC = () => {
       fetchNextPage();
     }
   }, [inView, fetchNextPage, hasNextPage]);
+
   if (error) {
     return (
       <>
